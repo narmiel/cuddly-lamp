@@ -2,7 +2,7 @@
 
 namespace FpDbTest;
 
-use Exception;
+use FpDbTest\Nodes\SkipNode;
 use mysqli;
 
 class Database implements DatabaseInterface
@@ -16,11 +16,13 @@ class Database implements DatabaseInterface
 
     public function buildQuery(string $query, array $args = []): string
     {
-        throw new Exception();
+        $parser = new Parser($args);
+
+        return $parser->parse($query);
     }
 
-    public function skip()
+    public function skip(): SkipNode
     {
-        throw new Exception();
+        return new SkipNode();
     }
 }
